@@ -4,28 +4,26 @@ const {
     JSDOM
 } = jsdom;
 
-const baseURL = "https://www.goodreads.com/quotes/search"
+const baseURL = "https://www.frasesdobem.com.br/page"
 
-async function goodreadsQuotes({
-    q,
-    page
-}) {
+module.exports = async ({ s = "", page = 1 }) => {
     let quotes = []
-    let totalResults = 0;
 
-    await fetch(`${baseURL}?` + new URLSearchParams({ q, page}))
+    await fetch(`${baseURL+"/"+page}?` + new URLSearchParams({
+            s
+        }))
         .then(data => data.text()).then((text) => {
-            const dom = new JSDOM(text);
-            let totalResultsString = dom.window.document.querySelector(".smallText").textContent
-            totalResultsString = totalResultsString.substring(totalResultsString.indexOf("of") + 3, totalResultsString.length - 1).replace(/,/g, "")
-            totalResults = Number(totalResultsString)
-            dom.window.document.querySelectorAll(".quoteText").forEach(quoteText => {
-                quotes.push({
-                    text: quoteText.innerHTML.substring(quoteText.innerHTML.indexOf("“"), quoteText.innerHTML.indexOf("”")) // Getting quote 
-                        .replace(/<br>/g, "\n") // Replacing html line break to \n
-                        .replace(/<b>|<[r'//']b>/g, ""), // Removing some others html tags 
-                    authorOrTitle: quoteText.querySelector(".authorOrTitle").textContent.trim()
-                })
+            const document = new JSDOM(text).window.document;
+
+            document.querySelectorAll(".card").forEach(quoteCard => {
+                let quote = quoteCard.querySelector(".frase")?.innerHTML
+                    ?.replace(/<br>/g, "\n") // Replacing html line break to \n
+                    ?.replace(/<b>|<[r'//']b>/g, "")
+                if (quote)
+                    quotes.push({
+                        quote, // Removing some others html tags 
+                        author: quoteCard.querySelector(".autor")?.textContent?.trim() || ""
+                    })
             })
         }).catch(function (error) {
             throw 'Something went wrong' + error
@@ -33,13 +31,6 @@ async function goodreadsQuotes({
 
     return {
         quotes,
-        totalResults
+        page
     }
 }
-
-goodreadsQuotes({
-    q: "gay",
-    page: 1
-})
-
-// module.exports = goodreadsQuotes

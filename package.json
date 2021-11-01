@@ -1,9 +1,9 @@
 {
-  "name": "phrases-api",
-  "version": "1.0.0",
+  "name": "frases-do-bem-spider",
+  "version": "1.1.0",
   "description": "A project to get quotes from a website",
   "main": "index.js",
-  "repository": "https://github.com/le-dreary/phrases-api.git",
+  "repository": "https://github.com/le-dreary/frases-do-bem-spider.git",
   "author": "LeandroDreary <l3androviegas@gmail.com>",
   "type": "module",
   "license": "MIT",
