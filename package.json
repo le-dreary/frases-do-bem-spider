@@ -1,0 +1,14 @@
+{
+  "name": "phrases-api",
+  "version": "1.0.0",
+  "description": "A project to get quotes from a website",
+  "main": "index.js",
+  "repository": "https://github.com/le-dreary/phrases-api.git",
+  "author": "LeandroDreary <l3androviegas@gmail.com>",
+  "type": "module",
+  "license": "MIT",
+  "dependencies": {
+    "jsdom": "^18.0.0",
+    "node-fetch": "^3.0.0"
+  }
+}
