@@ -1,4 +1,4 @@
-import fetch from 'node-fetch'
+import Axios from 'axios'
 import jsdom from 'jsdom'
 const {
     JSDOM
@@ -6,15 +6,13 @@ const {
 
 const baseURL = "https://www.frasesdobem.com.br/page"
 
-export default async ({ s = "", page = 1 }) => {
+export default async function ({
+    s = "",
+    page = 1
+}) {
     let quotes = []
-
-    await fetch(`${baseURL+"/"+page}?` + new URLSearchParams({
-            s
-        }))
-        .then(data => data.text()).then((text) => {
-            const document = new JSDOM(text).window.document;
-
+    await Axios(`${baseURL+"/"+page}`, { params: { s } }).then(response => {
+            const document = new JSDOM(response.data).window.document;
             document.querySelectorAll(".card").forEach(quoteCard => {
                 let quote = quoteCard.querySelector(".frase")?.innerHTML
                     ?.replace(/<br>/g, "\n") // Replacing html line break to \n
