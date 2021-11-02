@@ -1,5 +1,5 @@
-import fetch from 'node-fetch'
-import jsdom from 'jsdom'
+const fetch = require('node-fetch')
+const jsdom = require('jsdom')
 const {
     JSDOM
 } = jsdom;
