@@ -6,7 +6,7 @@ const {
 
 const baseURL = "https://www.frasesdobem.com.br/page"
 
-export default async ({ s = "", page = 1 }) => {
+module.exports = async ({ s = "", page = 1 }) => {
     let quotes = []
 
     await fetch(`${baseURL+"/"+page}?` + new URLSearchParams({
