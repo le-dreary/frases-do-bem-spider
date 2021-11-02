@@ -1,12 +1,12 @@
-const fetch = require('node-fetch')
-const jsdom = require('jsdom')
+import fetch from 'node-fetch'
+import jsdom from 'jsdom'
 const {
     JSDOM
 } = jsdom;
 
 const baseURL = "https://www.frasesdobem.com.br/page"
 
-module.exports = async ({ s = "", page = 1 }) => {
+export default async ({ s = "", page = 1 }) => {
     let quotes = []
 
     await fetch(`${baseURL+"/"+page}?` + new URLSearchParams({
